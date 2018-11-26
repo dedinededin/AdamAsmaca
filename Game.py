@@ -12,12 +12,13 @@ def gen(alphabet, words):
             dict[n] = 1
 
     freqList = sorted(dict.items(), key=lambda x: x[1], reverse=True)
+    print(freqList)
     for freq in freqList:
         if freq[0] in alphabet:
             return freq[0]
 
 
-wordList = [line.rstrip('\n') for line in open('kelime-listesi2.txt', encoding="utf-8")]
+wordList = [line.rstrip('\n') for line in open('kelime-listesi.txt', encoding="utf-8")]
 alphabet = "abcçdefgğhıijklmnoöprsştuüvyz"
 
 wordLength = int(input("Kelimen kaç harfli?"))
@@ -38,8 +39,13 @@ while len(wordList) > 1:
             index = int(index) - 1
             theWord = theWord[:index] + char + theWord[index + 1:]
             wordList = list(filter(lambda a: a[index] == char, wordList))
+
+        for index in range(0, wordLength):
+            if theWord[index] == "_":
+                wordList = list(filter(lambda a: a[index] != char, wordList))
+
         print(theWord)
-        # print(wordList)
+        print(wordList)
         wholeWords = str(''.join(wordList))
         alphabet = "".join(OrderedDict.fromkeys(wholeWords))
 
